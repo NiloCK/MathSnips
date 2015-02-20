@@ -4,15 +4,27 @@
     <script src="Fraction.min.js"></script>
     <script>
         function init() {
-            var f = new Fraction(1, 4);
-            document.body.appendChild(f.getCanvasDrawing(400));
+            var f = new Fraction(3, 4);
+            document.body.appendChild(f.getCanvasDrawing(200));
         }
         
+        function drawFrac() {
+            var f = new Fraction(
+                parseInt(document.getElementById('Numerator').value, 10),
+                parseInt(document.getElementById("Denominator").value)
+            );
+
+            document.body.appendChild(f.getCanvasDrawing(200));
+        }
         window.onload = init;
+
+
     </script>
     <title></title>
 </head>
 <body>
-
+    <input type="number" id="Numerator" value="" />
+    <input type="number" id="Denominator" value="" />
+    <button onclick="drawFrac()" value="Draw Me!"></button>
 </body>
 </html>

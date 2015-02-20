@@ -1,4 +1,5 @@
 ﻿
+
 function Fraction(num, den) {
     if (num > den) {
         throw new RangeException();
@@ -29,7 +30,9 @@ Fraction.prototype.getCanvasDrawing = function (size) {
         con.lineTo(mid + mid * Math.sin(i * angle), mid + mid * Math.cos(i * angle));
         con.stroke();
     }
-
+    con.beginPath();
+    con.arc(mid, mid, mid, 0, 2 * Math.PI);
+    con.stroke();
 
     return canvas;
 }
