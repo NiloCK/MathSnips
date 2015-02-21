@@ -11,7 +11,6 @@ function Fraction(num, den) {
 
 Fraction.prototype.getCanvasDrawing = function (size) {
     // TODO: error handle size input
-    // todo: special case for 1/1?
     // todo: the 'cutoff' effect at the tops and sides is worse as the image shrinks. Fix it.
 
     var canvas = document.createElement('canvas');
