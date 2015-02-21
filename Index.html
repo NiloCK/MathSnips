@@ -4,28 +4,36 @@
     <script src="Fraction.js"></script>
     <script>
         function init() {
-            var f = new Fraction(3, 4);
-            var g = new Fraction(2, 5);
-
-            document.body.appendChild(f.getCanvasDrawing(200));
             document.getElementById("Numerator").focus();
         }
         
         function drawFrac() {
             var f = new Fraction(
                 parseInt(document.getElementById('Numerator').value, 10),
-                parseInt(document.getElementById("Denominator").value)
+                parseInt(document.getElementById("Denominator").value, 10)
             );
 
             document.body.appendChild(f.getCanvasDrawing(50));
         }
+
+        function drawStrFrac() {
+            var f = new Fraction(document.getElementById("StrInput").value);
+            document.body.appendChild(f.getCanvasDrawing(300));
+        }
+
         window.onload = init;
     </script>
     <title></title>
 </head>
 <body>
-    <input type="number" id="Numerator" value="" />
+    Two-digit ctor:
+    <br />
+    <input type="number" id="Numerator" value="" /> /
     <input type="number" id="Denominator" value="" />
-    <button onclick="drawFrac()" id="Button">Draw Me!</button>
+    <button onclick="drawFrac()" id="Button">Draw Me!</button><br />
+    String ctor:<br />
+    <input type="text" name="StrInput" value="" id="StrInput" />
+    <button onclick="drawStrFrac()">Draw Me!</button><br />
+
 </body>
 </html>
