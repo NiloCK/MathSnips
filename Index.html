@@ -5,6 +5,7 @@
     <script>
         function init() {
             document.getElementById("Numerator").focus();
+            
         }
         
         function drawFrac() {
@@ -18,7 +19,10 @@
 
         function drawStrFrac() {
             var f = new Fraction(document.getElementById("StrInput").value);
-            document.body.appendChild(f.getCanvasDrawing(300));
+            do {
+                document.body.appendChild(f.getCanvasDrawing(300));
+            } while (f.reduce());
+
         }
 
         window.onload = init;

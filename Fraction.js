@@ -3,14 +3,14 @@
  * ctor for a Fraction
  * 
  * @constructor
- * @param {String} num String representation of the fraction. Eg, 3/4
- * @param {int} num The Numerator
- * @param {int} den The Denominator
+ * @param {(Number|String)} num The Numerator, if an int, or a String represntation. Eg, 3/4
+ * @param {Number} [den] The Denominator
  */
 function Fraction(num, den) {
     
     if (den === undefined && typeof num === "string") {
         // string constructor
+        // todo: better parsing / error handling here.
         var split = num.split('/');
         num = parseInt(split[0], 10);
         den = parseInt(split[1], 10);
@@ -38,8 +38,8 @@ Fraction.prototype.simplify = function () {
  * terms before the call to reduce(). True otherwise.
  */
 Fraction.prototype.reduce = function () {
-    for (var i = 2; i < this.num && i < thisd.den; i++) {
-        if (i % this.num === 0 && i % this.den === 0) {
+    for (var i = 2; i <= this.num && i <= this.den; i++) {
+        if (this.num % i === 0 && this.den % i === 0) {
             this.num = this.num / i;
             this.den = this.den / i;
 
@@ -51,11 +51,9 @@ Fraction.prototype.reduce = function () {
 }
 
 /**
- * Generates an html5 canvas drawing representing the
- * fraction.
+ * Generates an html5 canvas drawing representing the fraction.
  * 
- * @param {int} size - 
- * The width and height in pixels of the generated canvas element
+ * @param {int} size The width and height in pixels of the generated canvas element
  * @returns {HTMLElement} A (size) by (size) canvas which represents the fraction.
  */
 Fraction.prototype.getCanvasDrawing = function (size) {
