@@ -9,6 +9,24 @@ function Fraction(num, den) {
     this.den = den;
 }
 
+Fraction.prototype.simplify = function () {
+    // reduce until no further reductions possible
+    while (this.reduce());
+}
+
+Fraction.prototype.reduce = function () {
+    for (var i = 2; i < this.num && i < thisd.den; i++) {
+        if (i % this.num === 0 && i % this.den === 0) {
+            this.num = this.num / i;
+            this.den = this.den / i;
+
+            return true;
+        }
+    }
+    // indicate that the fraction is in lowest terms
+    return false;
+}
+
 Fraction.prototype.getCanvasDrawing = function (size) {
     if (size === undefined) {
         console.log("Fraction defaulting to 100 px");
