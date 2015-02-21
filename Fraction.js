@@ -1,5 +1,11 @@
 ﻿
-
+/**
+ * ctor for a Fraction
+ * 
+ * @constructor
+ * @param {int} num - The Numerator
+ * @param {int} den - The Denominator
+ */
 function Fraction(num, den) {
     if (num > den) {
         throw new RangeException();
