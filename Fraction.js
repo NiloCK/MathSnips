@@ -10,8 +10,9 @@ function Fraction(num, den) {
 }
 
 Fraction.prototype.getCanvasDrawing = function (size) {
-    // todo: error handle size input
+    // TODO: error handle size input
     // todo: special case for 1/1?
+    // todo: the 'cutoff' effect at the tops and sides is worse as the image shrinks. Fix it.
 
     var canvas = document.createElement('canvas');
     canvas.height = size;
@@ -19,13 +20,11 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     var con = canvas.getContext('2d');
 
     var mid = size / 2;
+    var radius = mid * 0.95;
     var angle = 2 * Math.PI / this.den;
 
     con.fillStyle = 'orange';
 
-    //con.beginPath();
-    //con.arc(mid, mid, mid, 0, angle * this.num);
-    //con.fill();
     // the 'arc' fills
     for (var i = 0; i < this.num; i++) {
         con.beginPath();
@@ -44,12 +43,16 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     con.fill();
 
     // the dividing spokes
-    for (var i = 0; i < this.den; i++) {
-        con.beginPath();
-        con.moveTo(mid, mid);
-        con.lineTo(mid + mid * Math.cos(i * angle), mid + mid * Math.sin(i * angle));
-        con.stroke();
+    if (this.den > 1) {
+        // prevents drawing of 'solitary' spoke in 1/1
+        for (var i = 0; i < this.den; i++) {
+            con.beginPath();
+            con.moveTo(mid, mid);
+            con.lineTo(mid + mid * Math.cos(i * angle), mid + mid * Math.sin(i * angle));
+            con.stroke();
+        }
     }
+
     // the exterior circle
     con.beginPath();
     con.arc(mid, mid, mid, 0, 2 * Math.PI);
