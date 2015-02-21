@@ -10,7 +10,10 @@ function Fraction(num, den) {
 }
 
 Fraction.prototype.getCanvasDrawing = function (size) {
-    // TODO: error handle size input
+    if (size === undefined) {
+        console.log("Fraction defaulting to 100 px");
+        size = 100;
+    }
     // todo: the 'cutoff' effect at the tops and sides is worse as the image shrinks. Fix it.
 
     var canvas = document.createElement('canvas');
