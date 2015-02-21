@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <script src="Fraction.min.js"></script>
+    <script src="Fraction.js"></script>
     <script>
         function init() {
             var f = new Fraction(3, 4);
             document.body.appendChild(f.getCanvasDrawing(200));
+            document.getElementById("Numerator").focus();
         }
         
         function drawFrac() {
@@ -17,14 +18,12 @@
             document.body.appendChild(f.getCanvasDrawing(200));
         }
         window.onload = init;
-
-
     </script>
     <title></title>
 </head>
 <body>
     <input type="number" id="Numerator" value="" />
     <input type="number" id="Denominator" value="" />
-    <button onclick="drawFrac()" value="Draw Me!"></button>
+    <button onclick="drawFrac()" id="Button">Draw Me!</button>
 </body>
 </html>
