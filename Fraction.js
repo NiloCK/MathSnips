@@ -43,6 +43,8 @@ Fraction.prototype.reduce = function () {
             this.num = this.num / i;
             this.den = this.den / i;
 
+            // indicate that the fraction may be
+            // able to be reduced further.
             return true;
         }
     }
@@ -66,12 +68,19 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     canvas.height = size;
     canvas.width = size;
     var con = canvas.getContext('2d');
+    
 
     var mid = size / 2;
     var radius = mid * 0.9;
     var angle = 2 * Math.PI / this.den;
 
     con.fillStyle = 'orange';
+
+    // providing a randomized rotation for the drawing.
+    // (outputs feel less 'mechanized' this way
+    con.translate(mid, mid);
+    con.rotate(Math.random() * Math.PI * 2); // param rotate?
+    con.translate(-mid, -mid);
 
     // the 'arc' fills
     for (var i = 0; i < this.num; i++) {
@@ -106,6 +115,8 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     con.beginPath();
     con.arc(mid, mid, radius, 0, 2 * Math.PI);
     con.stroke();
+
+    
 
     return canvas;
 }
