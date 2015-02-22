@@ -24,6 +24,40 @@ function Fraction(num, den) {
     this.den = den;
 }
 
+/**
+ * Returns the sum of fractions A and B.
+ */
+Fraction.sum = function (A,B) {
+    Fraction.setCommonDenominators(A, B);
+    return new Fraction(A.num + B.num, A.den);
+}
+
+/**
+ * Finds a common denominator for fractions A and B so that
+ * they can be added or subtracted.
+ */
+Fraction.setCommonDenominators = function (A, B) {
+    // todo: this is not how to validate input in js. Fix it.
+    //if (typeof A != 'Fraction' || typeof B != 'Fraction') {
+    //    throw 1;
+    //}
+
+    if (A.den == B.den) {
+        return false; // indicate that A and B already had common denominators
+    } else {
+        // todo: Replace / supplement this with LCM
+        var aDen = A.den;
+        A.num *= B.den;
+        A.den *= B.den;
+        B.num *= aDen;
+        B.den *= aDen;
+        return true;
+    }
+}
+
+/**
+ * Reduces the fraction to simplest terms
+ */
 Fraction.prototype.simplify = function () {
     // reduce until no further reductions possible
     while (this.reduce());

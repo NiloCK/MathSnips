@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="Fraction.js"></script>
+    <title>Addition Demo</title>
+    <script>
+        function addFractions() {
+            append(document.createElement('hr'));
+            var f = new Fraction(
+                document.getElementById("FracA").value);
+            var g = new Fraction(
+                document.getElementById("FracB").value);
+
+            append(f.getCanvasDrawing(200));
+            append(g.getCanvasDrawing(200));
+            append(document.createElement('br'));
+
+            if (Fraction.setCommonDenominators(f, g)) {
+                append(f.getCanvasDrawing(200));
+                append(g.getCanvasDrawing(200));
+                append(document.createElement('br'));
+            }
+            append(Fraction.sum(f, g).getCanvasDrawing(200));
+        }
+
+        function append(el) {
+            document.body.appendChild(el);
+        }
+    </script>
+</head>
+<body>
+
+    <input type="text" id="FracA" value="1/2" />
+    <input type="text" id="FracB" value="1/3" />
+    <button onclick="addFractions()">Add Us</button>
+</body>
+</html>
