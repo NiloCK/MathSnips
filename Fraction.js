@@ -165,6 +165,10 @@ Fraction.prototype.getCanvasDrawing = function (size) {
 Fraction.prototype.getSquareCanvasDrawing = function (size) {
     // todo: Do we want the area of a circle representation
     // and a square representation to be equal for a given 'size' input?
+
+    // todo: must be rotatable (by 90)
+
+    // todo: prime check on the den, followed by horiz + vertically cut 'whole'.
     if (!size) { size = 100 }
 
     var canvas = document.createElement('canvas');
