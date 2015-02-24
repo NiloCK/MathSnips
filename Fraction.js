@@ -158,3 +158,39 @@ Fraction.prototype.getCanvasDrawing = function (size) {
 
     return canvas;
 }
+
+/**
+ * Returns a square-based representation of the fraction.
+ */
+Fraction.prototype.getSquareCanvasDrawing = function (size) {
+    // todo: Do we want the area of a circle representation
+    // and a square representation to be equal for a given 'size' input?
+    if (!size) { size = 100 }
+
+    var canvas = document.createElement('canvas');
+    canvas.height = size;
+    canvas.width = size;
+    var con = canvas.getContext('2d');
+
+    con.translate(size / 20, size / 20);
+    size = 0.9 * size;
+
+    // The 'filled in' bits
+    con.fillStyle = 'orange';
+    for (var i = 0; i < this.num; i++) {
+        con.fillRect(i * size / this.den, 0, size / this.den, size);
+    }
+
+    // The vertical bars
+    for (var i = 1; i < this.den; i++) {
+        con.beginPath();
+        con.moveTo(i * size / this.den, 0);
+        con.lineTo(i * size / this.den, size);
+        con.stroke();
+    }
+
+    // the outer box
+    con.strokeRect(0, 0, size, size);
+
+    return canvas;
+}
