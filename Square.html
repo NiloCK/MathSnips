@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="Fraction.js"></script>
+    <title>Square</title>
+    <script>
+        window.onload = function () {
+            document.getElementById("Fraction").focus();
+        }
+
+        function drawSquare() {
+            var f = new Fraction(document.getElementById("Fraction").value);
+
+            document.body.appendChild(f.getSquareCanvasDrawing(300));
+        }
+    </script>
+</head>
+<body>
+    // todo: this (and similar on other pages) should produce more formatted output.
+    <input type="text" id="Fraction" value="" />
+    <button onclick="drawSquare()">Reduce Me</button>
+    <br /><br />
+</body>
+</html>
