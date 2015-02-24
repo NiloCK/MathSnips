@@ -110,7 +110,6 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     canvas.width = size;
     var con = canvas.getContext('2d');
     
-
     var mid = size / 2;
     var radius = mid * 0.9;
     var angle = 2 * Math.PI / this.den;
@@ -156,8 +155,6 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     con.beginPath();
     con.arc(mid, mid, radius, 0, 2 * Math.PI);
     con.stroke();
-
-    
 
     return canvas;
 }
