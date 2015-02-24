@@ -56,6 +56,13 @@ Fraction.setCommonDenominators = function (A, B) {
 }
 
 /**
+ * Returns simple string representation, eg "3/4"
+ */
+Fraction.prototype.toString = function () {
+    return this.num + "/" + this.den;
+}
+
+/**
  * Reduces the fraction to simplest terms
  */
 Fraction.prototype.simplify = function () {
