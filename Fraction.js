@@ -116,10 +116,14 @@ Fraction.prototype.getCanvasDrawing = function (size) {
 
     con.fillStyle = 'orange';
 
+    
     // providing a randomized rotation for the drawing.
     // (outputs feel less 'mechanized' this way
+    if (!this.rotation) {
+        this.rotation = Math.random() * Math.PI * 2;
+    }
     con.translate(mid, mid);
-    con.rotate(Math.random() * Math.PI * 2); // param rotate?
+    con.rotate(this.rotation);
     con.translate(-mid, -mid);
 
     // the 'arc' fills
