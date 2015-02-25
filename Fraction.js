@@ -5,6 +5,7 @@
  * @constructor
  * @param {(Number|String)} num The Numerator, if an int, or a String represntation. Eg, 3/4
  * @param {Number} [den] The Denominator
+ * @param {Object} options Options JSON object
  */
 function Fraction(num, den) {
     
@@ -119,7 +120,10 @@ Fraction.prototype.getCanvasDrawing = function (size) {
     // providing a randomized rotation for the drawing.
     // (outputs feel less 'mechanized' this way
     con.translate(mid, mid);
-    con.rotate(Math.random() * Math.PI * 2); // param rotate?
+    if (!this.rotation) {
+        this.rotation = Math.random() * Math.PI * 2;
+    }
+    con.rotate(this.rotation); // param rotate?
     con.translate(-mid, -mid);
 
     // the 'arc' fills

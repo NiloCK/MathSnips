@@ -11,20 +11,29 @@
             var g = new Fraction(
                 document.getElementById("FracB").value);
 
-            append(f.getCanvasDrawing(200));
-            append(g.getCanvasDrawing(200));
+            append(f.getCanvasDrawing(150));
+            append(g.getCanvasDrawing(150));
             append(document.createElement('br'));
 
             if (Fraction.setCommonDenominators(f, g)) {
-                append(f.getCanvasDrawing(200));
-                append(g.getCanvasDrawing(200));
+                append(f.getCanvasDrawing(150));
+                append(g.getCanvasDrawing(150));
                 append(document.createElement('br'));
             }
-            append(Fraction.sum(f, g).getCanvasDrawing(200));
+            var sum = Fraction.sum(f, g);
+            append(sum.getCanvasDrawing(150));
+
+            while (sum.reduce()) {
+                append(sum.getCanvasDrawing(150));
+            }
         }
 
         function append(el) {
             document.body.appendChild(el);
+        }
+
+        window.onload = function () {
+            document.getElementById("FracA").focus();
         }
     </script>
 </head>
