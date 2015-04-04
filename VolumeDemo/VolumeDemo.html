@@ -1,19 +1,46 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="../Content/normalize.css" rel="stylesheet" />
+    <link href="../Content/Skeleton/skeleton.css" rel="stylesheet" />
     <script src="../Scripts/three.js/build/three.js"></script>
     <script src="VolumeDemo.js"></script>
     <script>
-        var box = new RectPrism(12, 6, 4);
+        var example = new RectPrism(12, 6, 4);
         console.log("page load - where does this go?");
-        window.onload = function () {
-            document.body.appendChild(box.getCanvasDrawing(500));
-            box.animTest();
-        };
+        //window.onload = function () {
+        //    document.body.appendChild(example.getCanvasDrawing(500));
+        //    //example.animTest();
+        //};
+
+        var rect;
+        
+        function newRect() {
+            rect = new RectPrism(document.getElementById("Length").valueAsNumber,
+                document.getElementById('Width').valueAsNumber,
+                document.getElementById('Height').valueAsNumber);
+
+            rect.getCanvasDrawing();
+        }
     </script>
     <title></title>
 </head>
 <body>
-
+    <div class="container">
+        <div class="row">
+            <div class="four columns" id="left">
+                <h3>Make a Prism:</h3>
+                <label for="Length">Length: </label><input type="number" name="Length" value="4" />
+                <label for="Width">Width: </label><input type="number" name="Width" value="3" />
+                <label for="Height">Height: </label><input type="number" name="Height" value="2" />
+                <input class="button" type="button" value="Create" onclick="newRect();" />
+            </div>
+            <div class="four columns" id="middle">
+                <div></div>
+            </div>
+            <div class="four columns" id="right"></div>
+        </div>
+    </div>
+    
 </body>
 </html>

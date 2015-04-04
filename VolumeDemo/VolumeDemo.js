@@ -5,19 +5,9 @@ function RectPrism(length, width, height) {
     this.width = width;
     this.height = height;
 
-    this.box = null;
+    this.rect = null;
     this.canvas = null;
-
-    this.animTest = function () {
-        this.box.rotation.x += 0.01;
-        requestAnimationFrame(this.animTest);
-    }
 }
-
-//RectPrism.prototype.animTest = function () {
-//    this.box.rotation.x += 0.01;
-//    requestAnimationFrame(this.animTest);
-//}
 
 RectPrism.prototype.getCanvasDrawing = function(size){
     if (this.canvas) {
@@ -38,17 +28,17 @@ RectPrism.prototype.getCanvasDrawing = function(size){
 
     var boxGeometry = new THREE.BoxGeometry(this.width, this.width, this.height);
     var boxMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    this.box = new THREE.Mesh(boxGeometry, boxMat);
+    var boxWhole = new THREE.Mesh(boxGeometry, boxMat);
 
-    this.box.position.x = 0;
-    this.box.position.y = 0;
-    this.box.position.z = 0;
+    boxWhole.position.x = 0;
+    boxWhole.position.y = 0;
+    boxWhole.position.z = 0;
     
 
-    //var wireBox = new THREE.WireframeHelper(this.box, 0xffffff);
+    //var wireBox = new THREE.WireframeHelper(boxWhole, 0xffffff);
     //scene.add(wireBox);
 
-    scene.add(this.box);
+    scene.add(boxWhole);
     camera.position.x = 5;
     camera.position.y = 5;
     camera.position.z = 5;
@@ -56,9 +46,9 @@ RectPrism.prototype.getCanvasDrawing = function(size){
     camera.lookAt(new THREE.Vector3(-1,-1,-1)); 
 
     function render() {
-        //this.box.rotation.x += 0.1;
-        //this.box.rotation.y += 0.03;
-        //this.box.rotation.z -= -0.2;
+        boxWhole.rotation.x += 0.1;
+        boxWhole.rotation.y += 0.03;
+        boxWhole.rotation.z -= -0.2;
         requestAnimationFrame(render);
         renderer.render(scene, camera);
     }
