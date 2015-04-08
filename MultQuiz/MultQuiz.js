@@ -27,7 +27,7 @@ function Question(id, max, quiz) {
         input.id = 'q' + this.id;
         form.appendChild(input);
         var submit = document.createElement('button');
-        submit.innerText = 'Submit';
+        submit.innerHTML = 'Submit';
         form.appendChild(submit);
 
         var corAns = this.a * this.b;
