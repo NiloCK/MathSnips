@@ -96,7 +96,7 @@ function Quiz(numQ, max) {
                 score++;
             }
         }
-        scoreDiv.innerText = "You scored " + score + " out of " + this.questions.length;
+        scoreDiv.innerHTML = "You scored " + score + " out of " + this.questions.length;
         this.getDom().appendChild(scoreDiv);
     };
 }
