@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/moment.js"></script>
+    <script src="MultQuiz.js"></script>
+    <script>
+        function makeQuiz() {
+            var quiz = new Quiz(document.getElementById('NumQuestions').value,
+                                document.getElementById('MaxNum').value);
+            document.body.removeChild(document.getElementById('QuizSetup'));
+            document.body.appendChild(quiz.getDom());
+            quiz.nextQ();
+        }
+    </script>
+    <title></title>
+</head>
+<body>
+    <div id="QuizSetup">
+        <label for="NumQuestions">Number of Questions: </label><input type="number" id="NumQuestions" name="NumQuestions" value="10" />
+        <label for="MaxNum">Greatest digit: </label><input type="number" id="MaxNum" name="name" value="10" />
+        <button onclick="makeQuiz();">Make Quiz</button>
+    </div>
+</body>
+</html>
+
+
+<!--<form action="javascript:void(0);" onsubmit="addItem();">
+    <input id='addItemName' name='addItemName' placeholder='Item Name'>
+    <input id='addItemValue' name='addItemValue' placeholder='Value'>
+    <button id='addItemButton'>Add Item</button>
+</form>-->
