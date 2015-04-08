@@ -4,6 +4,21 @@
     <script src="../Scripts/moment.js"></script>
     <script src="MultQuiz.js"></script>
     <script>
+        function init() {
+            params = window.location.search.substr(1).split('&');
+            for (var i = 0; i < params.length; i++) {
+                params[i] = params[i].split['='];
+            }
+
+            var numQ = getParam('numQ');
+            var min = getParam('min');
+            var max = getParam('max');
+
+            if (numQ && max && min != undefined) {
+                makeQuiz();
+            }
+        }
+
         function makeQuiz() {
             var quiz = new Quiz(document.getElementById('NumQuestions').value,
                                 document.getElementById('MaxNum').value);
@@ -11,13 +26,26 @@
             document.body.appendChild(quiz.getDom());
             quiz.nextQ();
         }
+
+        function getParam(name) {
+            for (var i=0; i<params.length; i++){
+                if (name === params[i][0]){
+                    return parseInt(params[i][1]);
+                }
+            }
+        }
+        window.onload = init;
     </script>
     <title></title>
 </head>
 <body>
     <div id="QuizSetup">
         <label for="NumQuestions">Number of Questions: </label><input type="number" id="NumQuestions" name="NumQuestions" value="10" />
+        <br />
         <label for="MaxNum">Greatest digit: </label><input type="number" id="MaxNum" name="name" value="10" />
+        <br />
+        <label for="MinNum">Smallest digit: </label>
+        <br />
         <button onclick="makeQuiz();">Make Quiz</button>
     </div>
 </body>
