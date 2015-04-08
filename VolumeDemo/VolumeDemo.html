@@ -1,39 +1,34 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="../Content/skeleton.css" rel="stylesheet" />
     <link href="../Content/normalize.css" rel="stylesheet" />
-    <link href="../Content/Skeleton/skeleton.css" rel="stylesheet" />
     <script src="../Scripts/three.js/build/three.js"></script>
     <script src="VolumeDemo.js"></script>
     <script>
-        var example = new RectPrism(12, 6, 4);
-        console.log("page load - where does this go?");
-        //window.onload = function () {
-        //    document.body.appendChild(example.getCanvasDrawing(500));
-        //    //example.animTest();
-        //};
-
         var rect;
         
         function newRect() {
-            rect = new RectPrism(document.getElementById("Length").valueAsNumber,
-                document.getElementById('Width').valueAsNumber,
-                document.getElementById('Height').valueAsNumber);
+            rect = new RectPrism(document.getElementById("Length").value,
+                document.getElementById('Width').value,
+                document.getElementById('Height').value);
 
-            rect.getCanvasDrawing();
-        }
+            document.getElementById('right').appendChild(rect.getCanvasDrawing());
+            document.getElementById('middle').appendChild(rect.getControls());
+        };
     </script>
     <title></title>
 </head>
 <body>
     <div class="container">
+        
         <div class="row">
             <div class="four columns" id="left">
                 <h3>Make a Prism:</h3>
-                <label for="Length">Length: </label><input type="number" name="Length" value="4" />
-                <label for="Width">Width: </label><input type="number" name="Width" value="3" />
-                <label for="Height">Height: </label><input type="number" name="Height" value="2" />
-                <input class="button" type="button" value="Create" onclick="newRect();" />
+                <label for="Length">Length: </label><input type="number" id="Length" name="Length" value="4" />
+                <label for="Width">Width: </label><input type="number" id="Width" name="Width" value="3" />
+                <label for="Height">Height: </label><input type="number" id="Height" name="Height" value="2" />
+                <input type="button" class="button" value="Create" onclick="newRect();" />
             </div>
             <div class="four columns" id="middle">
                 <div></div>
