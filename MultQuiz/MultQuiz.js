@@ -2,9 +2,13 @@
 /// <reference path="../Scripts/moment.js" />
 
 
-function Question(id, max, quiz) {
-    this.a = getRandomInt(0, parseInt(max) + 1);
-    this.b = getRandomInt(0, parseInt(max) + 1);
+function Question(id, min, max, maxmin, quiz) {
+    do {
+        this.a = getRandomInt(parseInt(min), parseInt(max) + 1);
+        this.b = getRandomInt(parseInt(min), parseInt(max) + 1);
+    } while (this.a > parseInt(maxmin) || this.b > parseInt(maxmin)); 
+    
+    
     this.id = id;
     this.quiz = quiz;
 
@@ -60,12 +64,12 @@ Question.prototype.grade = function () {
     return this.correct;
 }
 
-function Quiz(numQ, max) {
+function Quiz(numQ, min, max, maxmin) {
     this.startTime = new Date();
     this.questions = [];
     this.dom = null;
     for (var i = 0; i < numQ; i++) {
-        this.questions.push(new Question(i, min, max, minmax, this));
+        this.questions.push(new Question(i, min, max, maxmin, this));
     }
 
     this.getDom = function () {
