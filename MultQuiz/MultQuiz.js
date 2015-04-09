@@ -1,4 +1,5 @@
 ﻿/// <reference path="MultQuiz.js" />
+/// <reference path="../Scripts/moment.js" />
 
 
 function Question(id, max, quiz) {
@@ -64,7 +65,7 @@ function Quiz(numQ, max) {
     this.questions = [];
     this.dom = null;
     for (var i = 0; i < numQ; i++) {
-        this.questions.push(new Question(i, max, this));
+        this.questions.push(new Question(i, min, max, minmax, this));
     }
 
     this.getDom = function () {

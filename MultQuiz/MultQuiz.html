@@ -1,23 +1,33 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="../Content/normalize.css" rel="stylesheet" />
+    <link href="../Content/skeleton.css" rel="stylesheet" />
     <script src="../Scripts/moment.js"></script>
     <script src="MultQuiz.js"></script>
     <script>
         function init() {
             params = window.location.search.substr(1).split('&');
-            for (var i = 0; i < params.length; i++) {
-                params[i] = params[i].split['='];
+            if (params[0]){
+                for (var i = 0; i < params.length; i++) {
+                    params[i] = params[i].split('=');
+                }
+            } else {
+                params = null;
             }
 
             var numQ = getParam('numQ');
-            var min = getParam('min');
-            var max = getParam('max');
+            var min = getParam('min') || 2;
+            var max = getParam('max') || 10;
 
-            if (numQ && max && min != undefined) {
-                makeQuiz();
+            if (numQ) {
+                var quiz = new Quiz(numQ, min, max);
+                document.body.removeChild(document.getElementById('QuizSetup'));
+                document.body.appendChild(quiz.getDom());
+                quiz.nextQ();
             }
         }
+
 
         function makeQuiz() {
             var quiz = new Quiz(document.getElementById('NumQuestions').value,
@@ -28,9 +38,11 @@
         }
 
         function getParam(name) {
-            for (var i=0; i<params.length; i++){
-                if (name === params[i][0]){
-                    return parseInt(params[i][1]);
+            if (params) {
+                for (var i = 0; i < params.length; i++) {
+                    if (name === params[i][0]) {
+                        return parseInt(params[i][1]);
+                    }
                 }
             }
         }
@@ -39,14 +51,32 @@
     <title></title>
 </head>
 <body>
-    <div id="QuizSetup">
-        <label for="NumQuestions">Number of Questions: </label><input type="number" id="NumQuestions" name="NumQuestions" value="10" />
-        <br />
-        <label for="MaxNum">Greatest digit: </label><input type="number" id="MaxNum" name="name" value="10" />
-        <br />
-        <label for="MinNum">Smallest digit: </label>
-        <br />
-        <button onclick="makeQuiz();">Make Quiz</button>
+    <div class="container">
+        <div id="QuizSetup">
+            <div class="row">
+                <div class="columns six">
+                    <h3>Quiz Setup</h3>
+                    <label for="NumQuestions">Number of Questions: </label>
+                    <input type="number" autocomplete="off" id="NumQuestions" name="NumQuestions" value="10" />
+                    <br />
+                    <label for="MaxNum">Greatest digit: </label>
+                    <input type="number" autocomplete="off" id="MaxNum" name="name" value="10" />
+                    <br />
+                    <label for="MinNum">Smallest digit: </label>
+                    <input type="number" autocomplete="off" id="MinNum" name="MinNum" value="0" />
+                    <br />
+                    <label for="MaxMin">MaxMin: </label>
+                    <input type="number" autocomplete="off" id="MaxMin" name="MaxMin" value="10" />
+
+                    <button onclick="makeQuiz();">Make Quiz</button>
+                </div>
+                <div class="six columns">
+                    <table>
+                        tr.
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
