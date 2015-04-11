@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <style>
+        #Link {
+            font-size: smaller;
+        }
         .question
         .display {
             font-size : x-large;
@@ -78,6 +81,8 @@
         }
         function updatePreview() {
             var qParams = getQuizParams();
+
+            // set the preview table
             $('td').css('background-color', 'white');
 
             for (var i = qParams.min; i <= qParams.max; i++) {
@@ -97,6 +102,21 @@
                 }
             });
 
+            // set the link
+            $('#Link').html(function () {
+                var str = 'A quiz with this configuration can be loaded with this ';
+                str += '<a href="';
+                var link = window.location.href +
+                            '?'                         +
+                            'numQ=' + qParams.numQ + '&'+
+                            'min=' + qParams.min + '&'  +
+                            'max=' + qParams.max + '&'  +
+                            'maxmin=' + qParams.maxmin;
+                str += link;
+                str += '">link</a>. ';
+                str += 'Right click and copy location/copy shortcut to send the link someplace.';
+                return str;
+            }());
         }
         function getQuizParams() {
             var ret = {
@@ -120,7 +140,7 @@
 <body>
     <div class="container">
         
-            <div class="row">
+            <div style="padding-top: 50px;" class="row">
                 
                 <div id="QuizSetup">
                     <div class="four columns">
@@ -138,6 +158,8 @@
                         <input type="number" autocomplete="off" id="MaxMin" name="MaxMin" value="10" />
                         <br />
                         <button onclick="makeQuiz();">Make Quiz</button>
+                        <br />
+                        <p id="Link"></p>
                     </div>
                 </div>
                 <div class="eight columns">
