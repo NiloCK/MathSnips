@@ -59,21 +59,12 @@
         function makeQuiz() {
             objQParams = getQuizParams();
             currentQuiz = new Quiz(objQParams.numQ, objQParams.min, objQParams.max, objQParams.maxmin);
-            //var qSetup = document.getElementById('QuizSetup');
-            //qSetup.parentNode.removeChild(qSetup);
-            //document.body.removeChild(document.getElementById('QuizSetup'));
-            //document.body.appendChild(quiz.getDom());
-            $table = $('#Table');
-            //$('.row').remove('#QuizSetup');
-            //$('.row').remove('#Table');
+
             $row = $('.row');
             $row.empty();
-            //$row.append('<div class="four columns u-cf"></div>');
             var dom = currentQuiz.getDom();
             dom.className = "four columns offset-by-four";
             $('.row').append(dom);
-            //$row.append('<div class="four columns u-cf"></div>');
-            //quiz.nextQ();
         }
 
         function getParam(name) {
