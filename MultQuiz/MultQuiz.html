@@ -32,35 +32,56 @@
         var currentQuiz;
 
         function init() {
+            $('#QuizSetup input').change(updatePreview);
             $table = $('table');
 
-            params = window.location.search.substr(1).split('&');
-            if (params[0]){
+            checkQueryString(window.location.search);
+            updatePreview();
+        }
+
+        // checks if there was a configured quiz
+        // in the location querystring
+        function checkQueryString(args) {
+            if (!args) {
+                return false;
+            }
+            if (args.charAt(0) === '?') {
+                args = args.substr(1);
+            }
+
+            var params = args.split('&');
+            if (params[0]) {
                 for (var i = 0; i < params.length; i++) {
                     params[i] = params[i].split('=');
                 }
             } else {
-                params = null;
+                return false;
             }
 
-            var numQ = getParam('numQ');
-            var min = getParam('min') || 2;
-            var max = getParam('max') || 10;
+            var qParam = {}
+            qParam.numQ = getParam('numQ');
+            qParam.min = getParam('min') || 2;
+            qParam.max = getParam('max') || 10;
+            qParam.maxmin = getParam('maxmin') || 10;
 
-            if (numQ) {
-                var quiz = new Quiz(numQ, min, max);
-                document.body.removeChild(document.getElementById('QuizSetup'));
-                document.body.appendChild(quiz.getDom());
-                quiz.nextQ();
+            // make the quiz if it has been specified!
+            if (qParam.numQ) {
+                makeQuiz(qParam);
             }
 
-            $('#QuizSetup input').change(updatePreview);
-            updatePreview();
+            function getParam(name){
+                if (params) {
+                    for (var i = 0; i < params.length; i++) {
+                        if (name === params[i][0]) {
+                            return parseInt(params[i][1]);
+                        }
+                    }
+                }
+            }
         }
 
-
-        function makeQuiz() {
-            objQParams = getQuizParams();
+        function makeQuiz(qParams) {
+            objQParams = qParams || getQuizParamsFromSetup();
             currentQuiz = new Quiz(objQParams.numQ, objQParams.min, objQParams.max, objQParams.maxmin);
 
             $row = $('.row');
@@ -70,17 +91,9 @@
             $('.row').append(dom);
         }
 
-        function getParam(name) {
-            if (params) {
-                for (var i = 0; i < params.length; i++) {
-                    if (name === params[i][0]) {
-                        return parseInt(params[i][1]);
-                    }
-                }
-            }
-        }
+        
         function updatePreview() {
-            var qParams = getQuizParams();
+            var qParams = getQuizParamsFromSetup();
 
             // set the preview table
             $('td').css('background-color', 'white');
@@ -118,7 +131,7 @@
                 return str;
             }());
         }
-        function getQuizParams() {
+        function getQuizParamsFromSetup() {
             var ret = {
                 numQ : parseInt($('#NumQuestions').val()),
                 max: parseInt($('#MaxNum').val()),
