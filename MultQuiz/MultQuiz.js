@@ -29,6 +29,7 @@ function Question(id, min, max, maxmin, quiz) {
         }
 
         var ret = document.createElement('div');
+        ret.classList = "question complete";
         var multStatement = document.createElement('div');
         multStatement.innerHTML = this.a + ' &times; ' + this.b + " = ";
         ret.appendChild(multStatement);
@@ -56,6 +57,15 @@ function Question(id, min, max, maxmin, quiz) {
     }
 }
 
+function applyJumboStyle(qDiv) {
+    var style = new CSSStyleDeclaration();
+    
+}
+
+Question.prototype.ask = function () {
+    this.getDom().className = "question display";
+}
+
 Question.prototype.onAnswer = function(){
     if (parseInt(document.getElementById('q' + this.id).value) === this.a * this.b) {
         this.correct = true;
@@ -65,6 +75,8 @@ Question.prototype.onAnswer = function(){
         this.correct = false;
         //this.getDom().style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
     }
+    this.getDom().className = "question complete";
+    //alert(this.getDom().classList);
     this.quiz.nextQ();
 }
 Question.prototype.grade = function () {
@@ -85,6 +97,12 @@ function Quiz(numQ, min, max, maxmin) {
             return this.dom;
         }
         var ret = document.createElement('div');
+        ret.style.paddingTop = "50px";
+
+        var button = document.createElement('button');
+        button.innerHTML = "Start the Quiz";
+        button.onclick = this.nextQ.bind(this);
+        ret.appendChild(button);
 
         this.dom = ret;
         return ret;
@@ -93,6 +111,10 @@ function Quiz(numQ, min, max, maxmin) {
 
     this.nextQ = function () {
         if (this.index < this.questions.length) {
+            if (this.index >= 1) {
+                //this.getDom().removeChild(this.questions[this.index - 1].getDom());
+                this.questions[this.index - 1].getDom().style.display = "none";
+            }
             this.getDom().appendChild(this.questions[this.index].getDom());
             document.getElementById('q' + this.index).focus();
             this.index++;
@@ -105,6 +127,7 @@ function Quiz(numQ, min, max, maxmin) {
         var score = 0;
 
         for (var i = 0; i < this.questions.length; i++) {
+            this.questions[i].getDom().style.display = "inline";
             if (this.questions[i].grade()) {
                 score++;
             }

@@ -1,13 +1,36 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
+        .question
+        .display {
+            font-size : x-large;
+            width: 100%;
+
+        }
+        .question
+        .display input{
+            display: inline;
+        }
+        
+        .question
+        .complete {
+            display: none;
+        }
+    </style>
     <link href="../Content/normalize.css" rel="stylesheet" />
     <link href="../Content/skeleton.css" rel="stylesheet" />
     <script src="../Scripts/moment.js"></script>
     <script src="../Scripts/jquery-2.1.3.js"></script>
     <script src="MultQuiz.js"></script>
     <script>
+        var $table;
+        var objQParams;
+        var currentQuiz;
+
         function init() {
+            $table = $('table');
+
             params = window.location.search.substr(1).split('&');
             if (params[0]){
                 for (var i = 0; i < params.length; i++) {
@@ -34,13 +57,23 @@
 
 
         function makeQuiz() {
-            var qParams = getQuizParams();
-            var quiz = new Quiz(qParams.numQ, qParams.min, qParams.max, qParams.maxmin);
-            var qSetup = document.getElementById('QuizSetup');
-            qSetup.parentNode.removeChild(qSetup);
+            objQParams = getQuizParams();
+            currentQuiz = new Quiz(objQParams.numQ, objQParams.min, objQParams.max, objQParams.maxmin);
+            //var qSetup = document.getElementById('QuizSetup');
+            //qSetup.parentNode.removeChild(qSetup);
             //document.body.removeChild(document.getElementById('QuizSetup'));
-            document.body.appendChild(quiz.getDom());
-            quiz.nextQ();
+            //document.body.appendChild(quiz.getDom());
+            $table = $('#Table');
+            //$('.row').remove('#QuizSetup');
+            //$('.row').remove('#Table');
+            $row = $('.row');
+            $row.empty();
+            //$row.append('<div class="four columns u-cf"></div>');
+            var dom = currentQuiz.getDom();
+            dom.className = "four columns offset-by-four";
+            $('.row').append(dom);
+            //$row.append('<div class="four columns u-cf"></div>');
+            //quiz.nextQ();
         }
 
         function getParam(name) {
@@ -86,7 +119,7 @@
         window.onload = init;
     </script>
     <style>
-        td{
+        #Table td{
             border: 1px solid rgb(199, 199, 199);
             text-align: center;
         }
@@ -95,28 +128,31 @@
 </head>
 <body>
     <div class="container">
-        <div id="QuizSetup">
+        
             <div class="row">
-                <div class="four columns">
-                    <h3>Quiz Setup:</h3>
-                    <label for="NumQuestions">Number of Questions: </label>
-                    <input type="number" autocomplete="off" id="NumQuestions" name="NumQuestions" value="10" />
-                    <br />
-                    <label for="MinNum">Smallest digit: </label>
-                    <input type="number" autocomplete="off" id="MinNum" name="MinNum" value="0" />
-                    <br />
-                    <label for="MaxNum">Greatest digit: </label>
-                    <input type="number" autocomplete="off" id="MaxNum" name="MaxNum" value="10" />
-                    <br />
-                    <label for="MaxMin">MaxMin: </label>
-                    <input type="number" autocomplete="off" id="MaxMin" name="MaxMin" value="10" />
-                    <br />
-                    <button onclick="makeQuiz();">Make Quiz</button>
+                
+                <div id="QuizSetup">
+                    <div class="four columns">
+                        <h3>Quiz Setup:</h3>
+                        <label for="NumQuestions">Number of Questions: </label>
+                        <input type="number" autocomplete="off" id="NumQuestions" name="NumQuestions" value="10" />
+                        <br />
+                        <label for="MinNum">Smallest digit: </label>
+                        <input type="number" autocomplete="off" id="MinNum" name="MinNum" value="0" />
+                        <br />
+                        <label for="MaxNum">Greatest digit: </label>
+                        <input type="number" autocomplete="off" id="MaxNum" name="MaxNum" value="10" />
+                        <br />
+                        <label for="MaxMin">MaxMin: </label>
+                        <input type="number" autocomplete="off" id="MaxMin" name="MaxMin" value="10" />
+                        <br />
+                        <button onclick="makeQuiz();">Make Quiz</button>
+                    </div>
                 </div>
                 <div class="eight columns">
                     <h4>Preview: </h4>
                     <p>Highlighted squares are eligible for the quiz.</p>
-                    <table>
+                    <table id="Table">
                         <tr>
                             <td>&times;</td>
                             <td>0</td>
@@ -288,14 +324,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        
     </div>
 </body>
 </html>
-
-
-<!--<form action="javascript:void(0);" onsubmit="addItem();">
-    <input id='addItemName' name='addItemName' placeholder='Item Name'>
-    <input id='addItemValue' name='addItemValue' placeholder='Value'>
-    <button id='addItemButton'>Add Item</button>
-</form>-->
