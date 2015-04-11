@@ -3,12 +3,20 @@
 
 
 function Question(id, min, max, maxmin, quiz) {
+    min = parseInt(min);
+    max = parseInt(max);
+    maxmin = parseInt(maxmin);
     do {
-        this.a = getRandomInt(parseInt(min), parseInt(max) + 1);
-        this.b = getRandomInt(parseInt(min), parseInt(max) + 1);
-    } while (this.a > parseInt(maxmin) || this.b > parseInt(maxmin)); 
-    
-    
+        this.a = getRandomInt((min), (max) + 1);
+        this.b = getRandomInt((min), (max) + 1);
+    } while (this.a > (maxmin) || this.b > (maxmin)); 
+    if (this.a == 0 || this.a == 1) {
+        this.a = getRandomInt(min, max + 1);
+    }
+    if (this.b == 0 || this.b == 1) {
+        this.b = getRandomInt(min, max + 1);
+    }
+
     this.id = id;
     this.quiz = quiz;
 
