@@ -1,6 +1,13 @@
-﻿/// <reference path="MultQuiz.js" />
+﻿/// <reference path="../Scripts/jquery-2.1.3.js" />
 /// <reference path="../Scripts/moment.js" />
 
+var scores = [];
+for (var i = 0; i < 11; i++) {
+    scores.push([]);
+    for (var j = 0; j < 11; j++) {
+        scores[i].push([]);
+    }
+}
 
 function Question(id, min, max, maxmin, quiz) {
     min = parseInt(min);
@@ -80,6 +87,8 @@ Question.prototype.onAnswer = function(){
         this.correct = false;
         //this.getDom().style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
     }
+    scores[this.a][this.b].push(this.correct);
+
     this.getDom().className = "question complete";
     //alert(this.getDom().classList);
     this.quiz.nextQ();
@@ -96,13 +105,21 @@ Question.prototype.grade = function () {
     return this.correct;
 }
 
-function Quiz(numQ, min, max, maxmin) {
-    this.startTime = new Date();
+function Quiz(numQ, min, max, maxmin, reset) {
+    this.min = min;
+    this.max = max;
+    this.numQ = numQ;
+    this.maxmin = maxmin;
+    this.startTime = null;
+    this.endTime = null;
     this.questions = [];
     this.dom = null;
     for (var i = 0; i < numQ; i++) {
         this.questions.push(new Question(i, min, max, maxmin, this));
     }
+
+    if (reset)
+        this.reset();
 
     this.getDom = function () {
         if (this.dom) {
@@ -131,7 +148,9 @@ function Quiz(numQ, min, max, maxmin) {
 
     this.nextQ = function () {
         if (this.index === 0) {
+            // first question - eg, the quiz is starting now.
             this.getDom().removeChild(document.getElementById("QuizTitle"));
+            this.startTime = new Date();
         }
         if (this.index < this.questions.length) {
             if (this.index >= 1) {
@@ -146,7 +165,9 @@ function Quiz(numQ, min, max, maxmin) {
             this.showScore();
         }
     };
+
     this.showScore = function () {
+        this.endTime = new Date();
         var scoreDiv = document.createElement('div');
         var score = 0;
 
@@ -156,9 +177,24 @@ function Quiz(numQ, min, max, maxmin) {
             }
             this.getDom().appendChild(this.questions[i].getDom());
         }
-        scoreDiv.innerHTML = "You scored " + score + " out of " + this.questions.length;
+        scoreDiv.innerHTML = "<br><br>You scored: <strong>" + score + " out of " + this.questions.length +
+                             "</strong><br>You took: <strong>" + moment(this.endTime).diff(moment(this.startTime), 'seconds') + " seconds</strong>."
+        
+        var tryAgain = document.createElement('div');
+        tryAgain.innerHTML = "<br>Click below to try this quiz again. Beat your score! Beat your time!";
+        var button = document.createElement('button');
+        button.onclick = this.constructor.bind(this, this.numQ, this.min, this.max, this.maxmin, true);
+        button.innerHTML = 'Try Again!';
+        
+        tryAgain.appendChild(button);
+        scoreDiv.appendChild(tryAgain);
         this.getDom().appendChild(scoreDiv);
     };
+
+    this.reset = function () {
+        $('#QuizDiv').empty();
+        $('#QuizDiv').append(this.getDom());
+    }
 }
 
 // Returns a random integer between min (included) and max (excluded)
