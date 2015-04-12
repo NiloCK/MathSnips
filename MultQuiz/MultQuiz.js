@@ -106,6 +106,7 @@ Question.prototype.grade = function () {
 }
 
 function Quiz(numQ, min, max, maxmin, reset) {
+    $('#QuizResults').hide();
     this.min = min;
     this.max = max;
     this.numQ = numQ;
@@ -129,7 +130,6 @@ function Quiz(numQ, min, max, maxmin, reset) {
         var ret = document.createElement('div');
         var title = document.createElement('div');
         title.id = "QuizTitle";
-        ret.style.paddingTop = "50px";
         title.innerHTML = "<p>This quiz has <strong>" + this.questions.length +
                           "</strong> questions.</p>";
         title.innerHTML += "<br>"
@@ -177,11 +177,13 @@ function Quiz(numQ, min, max, maxmin, reset) {
             }
             this.getDom().appendChild(this.questions[i].getDom());
         }
-        scoreDiv.innerHTML = "<br><br>You scored: <strong>" + score + " out of " + this.questions.length +
+
+        this.appendNewScore(score);
+        scoreDiv.innerHTML = "<br>You scored: <strong>" + score + " out of " + this.questions.length +
                              "</strong><br>You took: <strong>" + moment(this.endTime).diff(moment(this.startTime), 'seconds') + " seconds</strong>."
         
         var tryAgain = document.createElement('div');
-        tryAgain.innerHTML = "<br>Click below to try this quiz again. Beat your score! Beat your time!";
+        tryAgain.innerHTML = "<br>Beat your best score! Beat your best time!";
         var button = document.createElement('button');
         button.onclick = this.constructor.bind(this, this.numQ, this.min, this.max, this.maxmin, true);
         button.innerHTML = 'Try Again!';
@@ -190,6 +192,20 @@ function Quiz(numQ, min, max, maxmin, reset) {
         scoreDiv.appendChild(tryAgain);
         this.getDom().appendChild(scoreDiv);
     };
+
+    this.appendNewScore = function (score) {
+        var scoreRow = document.createElement('tr');
+        var rowScore = document.createElement('td');
+        rowScore.innerHTML = score + " / " + this.numQ;
+        var rowTime = document.createElement('td');
+        rowTime.innerHTML = moment(this.endTime).diff(moment(this.startTime), 'seconds') + 's';
+        scoreRow.appendChild(rowScore);
+        scoreRow.appendChild(rowTime);
+
+        $('#QuizResultsTable').append(scoreRow);
+        $('#MainRow').prepend($('#QuizResults'));
+        $('#QuizResults').css('display', 'inline');
+    }
 
     this.reset = function () {
         $('#QuizDiv').empty();

@@ -28,6 +28,7 @@
     <script src="MultQuiz.js"></script>
     <script>
         var $table;
+        var $n
         var objQParams;
         var currentQuiz;
 
@@ -157,7 +158,7 @@
 <body>
     <div class="container">
         
-            <div style="padding-top: 50px;" class="row">
+            <div id="MainRow" style="padding-top: 50px;" class="row">
                 
                 <div id="QuizSetup">
                     <div class="four columns">
@@ -354,6 +355,16 @@
                     </table>
                 </div>
             </div>
+        <div id="QuizResults" class="four columns" style="display: none">
+            <table id="QuizResultsTable">
+                <thead>
+                    <tr>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
         
     </div>
 </body>
