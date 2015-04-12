@@ -29,7 +29,6 @@ function Question(id, min, max, maxmin, quiz) {
 
     this.userAnswer;
     this.correct = null;
-    this.dom = null;
 
     this.getDom = function () {
         if (this.dom){
@@ -66,6 +65,7 @@ function Question(id, min, max, maxmin, quiz) {
         this.dom = ret;
         return ret;   
     }
+    this.dom = this.getDom();
 }
 
 function applyJumboStyle(qDiv) {
