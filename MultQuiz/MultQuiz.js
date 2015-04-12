@@ -96,20 +96,31 @@ function Quiz(numQ, min, max, maxmin) {
         if (this.dom) {
             return this.dom;
         }
+
         var ret = document.createElement('div');
+        var title = document.createElement('div');
+        title.id = "QuizTitle";
         ret.style.paddingTop = "50px";
+        title.innerHTML = "<p>This quiz has <strong>" + this.questions.length +
+                          "</strong> questions.</p>";
+        title.innerHTML += "<br>"
 
         var button = document.createElement('button');
         button.innerHTML = "Start the Quiz";
         button.onclick = this.nextQ.bind(this);
-        ret.appendChild(button);
+        title.appendChild(button);
+        ret.appendChild(title);
 
+        button.focus();
         this.dom = ret;
         return ret;
     };
     this.index = 0;
 
     this.nextQ = function () {
+        if (this.index === 0) {
+            this.getDom().removeChild(document.getElementById("QuizTitle"));
+        }
         if (this.index < this.questions.length) {
             if (this.index >= 1) {
                 //this.getDom().removeChild(this.questions[this.index - 1].getDom());
