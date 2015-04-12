@@ -20,6 +20,7 @@ function Question(id, min, max, maxmin, quiz) {
     this.id = id;
     this.quiz = quiz;
 
+    this.userAnswer;
     this.correct = null;
     this.dom = null;
 
@@ -31,13 +32,16 @@ function Question(id, min, max, maxmin, quiz) {
         var ret = document.createElement('div');
         ret.classList = "question complete";
         var multStatement = document.createElement('div');
-        multStatement.innerHTML = this.a + ' &times; ' + this.b + " = ";
+        multStatement.innerHTML = this.a + '&nbsp;&times;&nbsp;' + this.b + "&nbsp;=&nbsp;";
+        multStatement.style.display = "inline";
         ret.appendChild(multStatement);
 
         var form = document.createElement('form');
         form.style.display = "inline";
         var input = document.createElement('input');
         input.type = 'number';
+        input.autocomplete = 'off';
+        input.style.display = "inline";
         input.id = 'q' + this.id;
         form.appendChild(input);
         var submit = document.createElement('button');
@@ -67,7 +71,8 @@ Question.prototype.ask = function () {
 }
 
 Question.prototype.onAnswer = function(){
-    if (parseInt(document.getElementById('q' + this.id).value) === this.a * this.b) {
+    this.userAnswer = parseInt(document.getElementById('q' + this.id).value);
+    if (this.userAnswer === this.a * this.b) {
         this.correct = true;
         //this.getDom().style.backgroundColor = 'green';
     }
@@ -80,7 +85,14 @@ Question.prototype.onAnswer = function(){
     this.quiz.nextQ();
 }
 Question.prototype.grade = function () {
-    this.getDom().style.backgroundColor = this.correct ? 'green' : 'red';
+    this.dom = document.createElement('div');
+    this.dom.innerHTML = this.a + "&nbsp;&times;&nbsp;" + this.b +
+        "&nbsp;=&nbsp;";
+    var ans = document.createElement('span');
+    ans.innerHTML = this.userAnswer;
+    ans.style.backgroundColor = this.correct ? 'green' : 'red';
+    this.dom.appendChild(ans);
+    //this.getDom().style.backgroundColor = this.correct ? 'green' : 'red';
     return this.correct;
 }
 
@@ -130,6 +142,7 @@ function Quiz(numQ, min, max, maxmin) {
             document.getElementById('q' + this.index).focus();
             this.index++;
         } else {
+            this.questions[this.index - 1].getDom().style.display = "none";
             this.showScore();
         }
     };
@@ -138,10 +151,10 @@ function Quiz(numQ, min, max, maxmin) {
         var score = 0;
 
         for (var i = 0; i < this.questions.length; i++) {
-            this.questions[i].getDom().style.display = "inline";
             if (this.questions[i].grade()) {
                 score++;
             }
+            this.getDom().appendChild(this.questions[i].getDom());
         }
         scoreDiv.innerHTML = "You scored " + score + " out of " + this.questions.length;
         this.getDom().appendChild(scoreDiv);
