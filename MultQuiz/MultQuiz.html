@@ -28,13 +28,13 @@
     <script src="MultQuiz.js"></script>
     <script>
         var $table;
-        var $n
+        var $n;
         var objQParams;
         var currentQuiz;
 
         function init() {
             $('#QuizSetup input').change(updatePreview);
-            $table = $('table');
+            $table = $('#Table');
 
             checkQueryString(window.location.search);
             updatePreview();
@@ -200,157 +200,157 @@
                         </tr>
                         <tr>
                             <td>0</td>
-                            <td class="0 0"></td>
-                            <td class="0 1"></td>
-                            <td class="0 2"></td>
-                            <td class="0 3"></td>
-                            <td class="0 4"></td>
-                            <td class="0 5"></td>
-                            <td class="0 6"></td>
-                            <td class="0 7"></td>
-                            <td class="0 8"></td>
-                            <td class="0 9"></td>
-                            <td class="0 10"></td>
+                            <td id="0x0" class="0 0"></td>
+                            <td id="0x1" class="0 1"></td>
+                            <td id="0x2" class="0 2"></td>
+                            <td id="0x3" class="0 3"></td>
+                            <td id="0x4" class="0 4"></td>
+                            <td id="0x5" class="0 5"></td>
+                            <td id="0x6" class="0 6"></td>
+                            <td id="0x7" class="0 7"></td>
+                            <td id="0x8" class="0 8"></td>
+                            <td id="0x9" class="0 9"></td>
+                            <td id="0x10" class="0 10"></td>
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td class="1 0"></td>
-                            <td class="1 1"></td>
-                            <td class="1 2"></td>
-                            <td class="1 3"></td>
-                            <td class="1 4"></td>
-                            <td class="1 5"></td>
-                            <td class="1 6"></td>
-                            <td class="1 7"></td>
-                            <td class="1 8"></td>
-                            <td class="1 9"></td>
-                            <td class="1 10"></td>
+                            <td id="1x0" class="1 0"></td>
+                            <td id="1x1" class="1 1"></td>
+                            <td id="1x2" class="1 2"></td>
+                            <td id="1x3" class="1 3"></td>
+                            <td id="1x4" class="1 4"></td>
+                            <td id="1x5" class="1 5"></td>
+                            <td id="1x6" class="1 6"></td>
+                            <td id="1x7" class="1 7"></td>
+                            <td id="1x8" class="1 8"></td>
+                            <td id="1x9" class="1 9"></td>
+                            <td id="1x10" class="1 10"></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td class="2 0"></td>
-                            <td class="2 1"></td>
-                            <td class="2 2"></td>
-                            <td class="2 3"></td>
-                            <td class="2 4"></td>
-                            <td class="2 5"></td>
-                            <td class="2 6"></td>
-                            <td class="2 7"></td>
-                            <td class="2 8"></td>
-                            <td class="2 9"></td>
-                            <td class="2 10"></td>
+                            <td id="2x0" class="2 0"></td>
+                            <td id="2x1" class="2 1"></td>
+                            <td id="2x2" class="2 2"></td>
+                            <td id="2x3" class="2 3"></td>
+                            <td id="2x4" class="2 4"></td>
+                            <td id="2x5" class="2 5"></td>
+                            <td id="2x6" class="2 6"></td>
+                            <td id="2x7" class="2 7"></td>
+                            <td id="2x8" class="2 8"></td>
+                            <td id="2x9" class="2 9"></td>
+                            <td id="2x10" class="2 10"></td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td class="3 0"></td>
-                            <td class="3 1"></td>
-                            <td class="3 2"></td>
-                            <td class="3 3"></td>
-                            <td class="3 4"></td>
-                            <td class="3 5"></td>
-                            <td class="3 6"></td>
-                            <td class="3 7"></td>
-                            <td class="3 8"></td>
-                            <td class="3 9"></td>
-                            <td class="3 10"></td>
+                            <td id="3x0" class="3 0"></td>
+                            <td id="3x1" class="3 1"></td>
+                            <td id="3x2" class="3 2"></td>
+                            <td id="3x3" class="3 3"></td>
+                            <td id="3x4" class="3 4"></td>
+                            <td id="3x5" class="3 5"></td>
+                            <td id="3x6" class="3 6"></td>
+                            <td id="3x7" class="3 7"></td>
+                            <td id="3x8" class="3 8"></td>
+                            <td id="3x9" class="3 9"></td>
+                            <td id="3x10" class="3 10"></td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td class="4 0"></td>
-                            <td class="4 1"></td>
-                            <td class="4 2"></td>
-                            <td class="4 3"></td>
-                            <td class="4 4"></td>
-                            <td class="4 5"></td>
-                            <td class="4 6"></td>
-                            <td class="4 7"></td>
-                            <td class="4 8"></td>
-                            <td class="4 9"></td>
-                            <td class="4 10"></td>
+                            <td id="4x0" class="4 0"></td>
+                            <td id="4x1" class="4 1"></td>
+                            <td id="4x2" class="4 2"></td>
+                            <td id="4x3" class="4 3"></td>
+                            <td id="4x4" class="4 4"></td>
+                            <td id="4x5" class="4 5"></td>
+                            <td id="4x6" class="4 6"></td>
+                            <td id="4x7" class="4 7"></td>
+                            <td id="4x8" class="4 8"></td>
+                            <td id="4x9" class="4 9"></td>
+                            <td id="4x10" class="4 10"></td>
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td class="5 0"></td>
-                            <td class="5 1"></td>
-                            <td class="5 2"></td>
-                            <td class="5 3"></td>
-                            <td class="5 4"></td>
-                            <td class="5 5"></td>
-                            <td class="5 6"></td>
-                            <td class="5 7"></td>
-                            <td class="5 8"></td>
-                            <td class="5 9"></td>
-                            <td class="5 10"></td>
+                            <td id="5x0" class="5 0"></td>
+                            <td id="5x1" class="5 1"></td>
+                            <td id="5x2" class="5 2"></td>
+                            <td id="5x3" class="5 3"></td>
+                            <td id="5x4" class="5 4"></td>
+                            <td id="5x5" class="5 5"></td>
+                            <td id="5x6" class="5 6"></td>
+                            <td id="5x7" class="5 7"></td>
+                            <td id="5x8" class="5 8"></td>
+                            <td id="5x9" class="5 9"></td>
+                            <td id="5x10" class="5 10"></td>
                         </tr>
                         <tr>
                             <td>6</td>
-                            <td class="6 0"></td>
-                            <td class="6 1"></td>
-                            <td class="6 2"></td>
-                            <td class="6 3"></td>
-                            <td class="6 4"></td>
-                            <td class="6 5"></td>
-                            <td class="6 6"></td>
-                            <td class="6 7"></td>
-                            <td class="6 8"></td>
-                            <td class="6 9"></td>
-                            <td class="6 10"></td>
+                            <td id="6x0" class="6 0"></td>
+                            <td id="6x1" class="6 1"></td>
+                            <td id="6x2" class="6 2"></td>
+                            <td id="6x3" class="6 3"></td>
+                            <td id="6x4" class="6 4"></td>
+                            <td id="6x5" class="6 5"></td>
+                            <td id="6x6" class="6 6"></td>
+                            <td id="6x7" class="6 7"></td>
+                            <td id="6x8" class="6 8"></td>
+                            <td id="6x9" class="6 9"></td>
+                            <td id="6x10" class="6 10"></td>
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td class="7 0"></td>
-                            <td class="7 1"></td>
-                            <td class="7 2"></td>
-                            <td class="7 3"></td>
-                            <td class="7 4"></td>
-                            <td class="7 5"></td>
-                            <td class="7 6"></td>
-                            <td class="7 7"></td>
-                            <td class="7 8"></td>
-                            <td class="7 9"></td>
-                            <td class="7 10"></td>
+                            <td id="7x0" class="7 0"></td>
+                            <td id="7x1" class="7 1"></td>
+                            <td id="7x2" class="7 2"></td>
+                            <td id="7x3" class="7 3"></td>
+                            <td id="7x4" class="7 4"></td>
+                            <td id="7x5" class="7 5"></td>
+                            <td id="7x6" class="7 6"></td>
+                            <td id="7x7" class="7 7"></td>
+                            <td id="7x8" class="7 8"></td>
+                            <td id="7x9" class="7 9"></td>
+                            <td id="7x10" class="7 10"></td>
                         </tr>
                         <tr>
                             <td>8</td>
-                            <td class="8 0"></td>
-                            <td class="8 1"></td>
-                            <td class="8 2"></td>
-                            <td class="8 3"></td>
-                            <td class="8 4"></td>
-                            <td class="8 5"></td>
-                            <td class="8 6"></td>
-                            <td class="8 7"></td>
-                            <td class="8 8"></td>
-                            <td class="8 9"></td>
-                            <td class="8 10"></td>
+                            <td id="8x0" class="8 0"></td>
+                            <td id="8x1" class="8 1"></td>
+                            <td id="8x2" class="8 2"></td>
+                            <td id="8x3" class="8 3"></td>
+                            <td id="8x4" class="8 4"></td>
+                            <td id="8x5" class="8 5"></td>
+                            <td id="8x6" class="8 6"></td>
+                            <td id="8x7" class="8 7"></td>
+                            <td id="8x8" class="8 8"></td>
+                            <td id="8x9" class="8 9"></td>
+                            <td id="8x10" class="8 10"></td>
                         </tr>
                         <tr>
                             <td>9</td>
-                            <td class="9 0"></td>
-                            <td class="9 1"></td>
-                            <td class="9 2"></td>
-                            <td class="9 3"></td>
-                            <td class="9 4"></td>
-                            <td class="9 5"></td>
-                            <td class="9 6"></td>
-                            <td class="9 7"></td>
-                            <td class="9 8"></td>
-                            <td class="9 9"></td>
-                            <td class="9 10"></td>
+                            <td id="9x0" class="9 0"></td>
+                            <td id="9x1" class="9 1"></td>
+                            <td id="9x2" class="9 2"></td>
+                            <td id="9x3" class="9 3"></td>
+                            <td id="9x4" class="9 4"></td>
+                            <td id="9x5" class="9 5"></td>
+                            <td id="9x6" class="9 6"></td>
+                            <td id="9x7" class="9 7"></td>
+                            <td id="9x8" class="9 8"></td>
+                            <td id="9x9" class="9 9"></td>
+                            <td id="9x10" class="9 10"></td>
                         </tr>
                         <tr>
                             <td>10</td>
-                            <td class="10 0"></td>
-                            <td class="10 1"></td>
-                            <td class="10 2"></td>
-                            <td class="10 3"></td>
-                            <td class="10 4"></td>
-                            <td class="10 5"></td>
-                            <td class="10 6"></td>
-                            <td class="10 7"></td>
-                            <td class="10 8"></td>
-                            <td class="10 9"></td>
-                            <td class="10 10"></td>
+                            <td id="10x0" class="10 0"></td>
+                            <td id="10x1" class="10 1"></td>
+                            <td id="10x2" class="10 2"></td>
+                            <td id="10x3" class="10 3"></td>
+                            <td id="10x4" class="10 4"></td>
+                            <td id="10x5" class="10 5"></td>
+                            <td id="10x6" class="10 6"></td>
+                            <td id="10x7" class="10 7"></td>
+                            <td id="10x8" class="10 8"></td>
+                            <td id="10x9" class="10 9"></td>
+                            <td id="10x10" class="10 10"></td>
                         </tr>
                     </table>
                 </div>

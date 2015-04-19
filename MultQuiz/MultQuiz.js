@@ -202,6 +202,27 @@ function Quiz(numQ, min, max, maxmin, reset) {
         tryAgain.appendChild(button);
         scoreDiv.appendChild(tryAgain);
         this.getDom().appendChild(scoreDiv);
+
+        //this.getDom().appendChild($table);
+        $('#QuizResults').append($table);
+
+
+        for (var i = this.min; i <= this.max; i++) {
+            for (var j = this.min; j <= this.max; j++) {
+                var correctCount = 0;
+                var length = scores[i][j].length;
+                for (var k = 0; k < length; k++) {
+                    if (scores[i][j][k])
+                        correctCount++;
+                }
+                if (length > 0) {
+                    $('#' + i + 'x' + j).css('backgroundColor', getRgb(correctCount / scores[i][j].length));
+                } else {
+                    $('#' + i + 'x' + j).css('backgroundColor', 'white');
+                }
+            }
+        }
+        $table.show();
     };
 
     this.appendNewScore = function (score) {
@@ -222,6 +243,13 @@ function Quiz(numQ, min, max, maxmin, reset) {
         $('#QuizDiv').empty();
         $('#QuizDiv').append(this.getDom());
     }
+}
+
+function getRgb(percentage) {
+    return "rgb(" +
+        Math.floor(255 * Math.min(1, 2 - 2 * percentage)) + "," +   // red
+        Math.floor(255 * Math.min(1, 2 * percentage)) +             // green
+        ", 0)"; // blue
 }
 
 // Returns a random integer between min (included) and max (excluded)
