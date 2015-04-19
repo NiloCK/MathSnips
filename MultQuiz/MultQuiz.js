@@ -30,11 +30,16 @@ function Question(id, min, max, maxmin, quiz) {
     this.userAnswer;
     this.correct = null;
 
+    this.startTime = null;
+    this.endTime = null;
+    this.strCompletionTime = null;
+
     this.getDom = function () {
         if (this.dom){
             return this.dom;
         }
 
+        this.startTime = new Date();
         var ret = document.createElement('div');
         ret.classList = "question complete";
         var multStatement = document.createElement('div');
@@ -68,11 +73,6 @@ function Question(id, min, max, maxmin, quiz) {
     this.dom = this.getDom();
 }
 
-function applyJumboStyle(qDiv) {
-    var style = new CSSStyleDeclaration();
-    
-}
-
 Question.prototype.ask = function () {
     this.getDom().className = "question display";
 }
@@ -99,10 +99,21 @@ Question.prototype.grade = function () {
         "&nbsp;=&nbsp;";
     var ans = document.createElement('span');
     ans.innerHTML = this.userAnswer;
+    //ans.innerHTML += this.strCompletionTime;
     ans.style.backgroundColor = this.correct ? 'green' : 'red';
+
+    var time = document.createElement('span');
+    time.innerHTML = ' (' + this.strCompletionTime + ')';
     this.dom.appendChild(ans);
+    this.dom.appendChild(time);
     //this.getDom().style.backgroundColor = this.correct ? 'green' : 'red';
     return this.correct;
+};
+Question.prototype.stash = function ()
+{
+    this.endTime = new Date();
+    this.strCompletionTime = moment(this.endTIme).diff(moment(this.startTime), 'seconds') + 's';
+    this.getDom().style.display = "none";
 }
 
 function Quiz(numQ, min, max, maxmin, reset) {
@@ -154,14 +165,14 @@ function Quiz(numQ, min, max, maxmin, reset) {
         }
         if (this.index < this.questions.length) {
             if (this.index >= 1) {
-                //this.getDom().removeChild(this.questions[this.index - 1].getDom());
-                this.questions[this.index - 1].getDom().style.display = "none";
+                this.questions[this.index - 1].stash(); // mark the finish time and hide itself
             }
             this.getDom().appendChild(this.questions[this.index].getDom());
+            this.questions[this.index].startTime = new Date();
             document.getElementById('q' + this.index).focus();
             this.index++;
         } else {
-            this.questions[this.index - 1].getDom().style.display = "none";
+            this.questions[this.index - 1].stash();
             this.showScore();
         }
     };
