@@ -16,7 +16,7 @@ function Question(id, min, max, maxmin, quiz) {
     do {
         this.a = getRandomInt((min), (max) + 1);
         this.b = getRandomInt((min), (max) + 1);
-    } while (this.a > (maxmin) || this.b > (maxmin)); 
+    } while (this.a > (maxmin) && this.b > (maxmin)); 
     if (this.a == 0 || this.a == 1) {
         this.a = getRandomInt(min, max + 1);
     }
@@ -183,7 +183,7 @@ function Quiz(numQ, min, max, maxmin, reset) {
                              "</strong><br>You took: <strong>" + moment(this.endTime).diff(moment(this.startTime), 'seconds') + " seconds</strong>."
         
         var tryAgain = document.createElement('div');
-        tryAgain.innerHTML = "<br>Beat your best score! Beat your best time!";
+        tryAgain.innerHTML = "<br>Beat your best score! Beat your best time!<br>";
         var button = document.createElement('button');
         button.onclick = this.constructor.bind(this, this.numQ, this.min, this.max, this.maxmin, true);
         button.innerHTML = 'Try Again!';
