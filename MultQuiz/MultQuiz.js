@@ -1,5 +1,7 @@
 ﻿/// <reference path="../Scripts/jquery-2.1.3.js" />
 /// <reference path="../Scripts/moment.js" />
+/// <reference path="../Scripts/d3/d3.js" />
+
 
 var scores = [];
 for (var i = 0; i < 11; i++) {
@@ -14,15 +16,17 @@ function Question(id, min, max, maxmin, quiz) {
     max = parseInt(max);
     maxmin = parseInt(maxmin);
     do {
-        this.a = getRandomInt((min), (max) + 1);
-        this.b = getRandomInt((min), (max) + 1);
-    } while (this.a > (maxmin) && this.b > (maxmin)); 
-    if (this.a == 0 || this.a == 1) {
         this.a = getRandomInt(min, max + 1);
-    }
-    if (this.b == 0 || this.b == 1) {
         this.b = getRandomInt(min, max + 1);
-    }
+
+        if (this.a == 0 || this.a == 1) {
+            this.a = getRandomInt(min, max + 1);
+        }
+        if (this.b == 0 || this.b == 1) {
+            this.b = getRandomInt(min, max + 1);
+        }
+    } while (this.a > (maxmin) && this.b > (maxmin)); 
+    
 
     this.id = id;
     this.quiz = quiz;
@@ -99,14 +103,14 @@ Question.prototype.grade = function () {
         "&nbsp;=&nbsp;";
     var ans = document.createElement('span');
     ans.innerHTML = this.userAnswer;
-    //ans.innerHTML += this.strCompletionTime;
+
     ans.style.backgroundColor = this.correct ? 'green' : 'red';
 
     var time = document.createElement('span');
     time.innerHTML = ' (' + this.strCompletionTime + ')';
     this.dom.appendChild(ans);
     this.dom.appendChild(time);
-    //this.getDom().style.backgroundColor = this.correct ? 'green' : 'red';
+    
     return this.correct;
 };
 Question.prototype.stash = function ()
@@ -117,7 +121,7 @@ Question.prototype.stash = function ()
 }
 
 function Quiz(numQ, min, max, maxmin, reset) {
-    $('#QuizResults').hide();
+    //$('#QuizResults').hide();
     this.min = min;
     this.max = max;
     this.numQ = numQ;
@@ -139,6 +143,8 @@ function Quiz(numQ, min, max, maxmin, reset) {
         }
 
         var ret = document.createElement('div');
+        ret.classList.add('four');
+        ret.classList.add('columns');
         var title = document.createElement('div');
         title.id = "QuizTitle";
         title.innerHTML = "<p>This quiz has <strong>" + this.questions.length +
@@ -202,9 +208,22 @@ function Quiz(numQ, min, max, maxmin, reset) {
         tryAgain.appendChild(button);
         scoreDiv.appendChild(tryAgain);
         this.getDom().appendChild(scoreDiv);
+        this.getDom().classList.remove('four');
+        this.getDom().classList.add("two");
+        this.getDom().classList.add("columns");
 
         //this.getDom().appendChild($table);
-        $('#QuizResults').append($table);
+        //$('#QuizResults').append($table);
+        var tableDiv = document.createElement('div');
+        var $tDiv = $(tableDiv);
+        //tableDiv.className = "four columns";
+        $tDiv.addClass('eight columns');
+        $tDiv.append($table);
+        $('#MainRow').append(tableDiv);
+        //tableDiv.appendChild($table);
+        
+        //$table.addClass('four columns');
+        //$('#MainRow').prepend($table);
 
 
         for (var i = this.min; i <= this.max; i++) {
@@ -234,13 +253,20 @@ function Quiz(numQ, min, max, maxmin, reset) {
         scoreRow.appendChild(rowScore);
         scoreRow.appendChild(rowTime);
 
-        $('#QuizResultsTable').append(scoreRow);
-        $('#MainRow').prepend($('#QuizResults'));
-        $('#QuizResults').css('display', 'inline');
+        var resTable = $('#QuizResultsTable');
+        resTable.append(scoreRow);
+        $('#MainRow').prepend($('#QuizResultsTable'));
+        $('#QuizResultsTable').css('display', 'inline');
     }
 
     this.reset = function () {
-        $('#QuizDiv').empty();
+        var resTable = $('#QuizResultsTable');
+        resTable.hide();
+        $('body').append(resTable);
+        $('#MainRow').empty();
+        var qDiv = document.createElement('div');
+        qDiv.setAttribute('id', 'QuizDiv');
+        $('#MainRow').append(qDiv);
         $('#QuizDiv').append(this.getDom());
     }
 }

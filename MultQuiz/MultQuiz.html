@@ -22,6 +22,7 @@
         }
     </style>-->
     <link href="../Content/normalize.css" rel="stylesheet" />
+    <script src="../Scripts/d3/d3.js"></script>
     <link href="../Content/skeleton.css" rel="stylesheet" />
     <script src="../Scripts/moment.js"></script>
     <script src="../Scripts/jquery-2.1.3.js"></script>
@@ -91,7 +92,7 @@
             $row = $('.row');
             $row.empty();
             var dom = currentQuiz.getDom();
-            dom.className = "four columns offset-by-four";
+            dom.className = "four columns";
             dom.id = "QuizDiv";
             $('.row').append(dom);
         }
@@ -355,17 +356,14 @@
                     </table>
                 </div>
             </div>
-        <div id="QuizResults" class="four columns" style="display: none">
-            <table id="QuizResultsTable">
-                <thead>
-                    <tr>
-                        <th>Score</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        
+        <table id="QuizResultsTable" class="two columns" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Score</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </body>
 </html>
