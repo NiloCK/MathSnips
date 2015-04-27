@@ -92,7 +92,7 @@ Question.prototype.onAnswer = function(){
         //this.getDom().style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
     }
     if (this.a < scores.length && this.b < scores[this.a].length){
-	scores[this.a][this.b].push(this.correct);
+	    scores[this.a][this.b].push(this.correct);
     }
 
     this.getDom().className = "question complete";
@@ -228,8 +228,8 @@ function Quiz(numQ, min, max, maxmin, reset) {
         //$('#MainRow').prepend($table);
 
 
-        for (var i = this.min; i <= this.max; i++) {
-            for (var j = this.min; j <= this.max; j++) {
+        for (var i = this.min; i <= this.max && i <= 10; i++) {
+            for (var j = this.min; j <= this.max && j <= 10; j++) {
                 var correctCount = 0;
                 var length = scores[i][j].length;
                 for (var k = 0; k < length; k++) {
