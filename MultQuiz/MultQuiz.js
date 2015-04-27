@@ -91,7 +91,9 @@ Question.prototype.onAnswer = function(){
         this.correct = false;
         //this.getDom().style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
     }
-    scores[this.a][this.b].push(this.correct);
+    if (this.a < scores.length && this.b < scores[this.a].length){
+	scores[this.a][this.b].push(this.correct);
+    }
 
     this.getDom().className = "question complete";
     //alert(this.getDom().classList);
