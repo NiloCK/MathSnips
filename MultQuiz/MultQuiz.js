@@ -1,6 +1,5 @@
 ﻿/// <reference path="../Scripts/jquery-2.1.3.js" />
 /// <reference path="../Scripts/moment.js" />
-/// <reference path="../Scripts/d3/d3.js" />
 
 
 var scores = [];
