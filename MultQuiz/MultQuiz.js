@@ -79,7 +79,7 @@ function Question(id, min, max, maxmin, quiz) {
 
 Question.prototype.ask = function () {
     this.getDom().className = "question display";
-}
+};
 
 Question.prototype.onAnswer = function(){
     this.userAnswer = parseInt(document.getElementById('q' + this.id).value);
@@ -98,7 +98,7 @@ Question.prototype.onAnswer = function(){
     this.getDom().className = "question complete";
     //alert(this.getDom().classList);
     this.quiz.nextQ();
-}
+};
 Question.prototype.grade = function () {
     this.dom = document.createElement('div');
     this.dom.innerHTML = this.a + "&nbsp;&times;&nbsp;" + this.b +
@@ -120,7 +120,7 @@ Question.prototype.stash = function ()
     this.endTime = new Date();
     this.strCompletionTime = moment(this.endTIme).diff(moment(this.startTime), 'seconds') + 's';
     this.getDom().style.display = "none";
-}
+};
 
 function Quiz(numQ, min, max, maxmin, reset) {
     //$('#QuizResults').hide();
@@ -259,7 +259,7 @@ function Quiz(numQ, min, max, maxmin, reset) {
         resTable.append(scoreRow);
         $('#MainRow').prepend($('#QuizResultsTable'));
         $('#QuizResultsTable').css('display', 'inline');
-    }
+    };
 
     this.reset = function () {
         var resTable = $('#QuizResultsTable');
@@ -270,7 +270,7 @@ function Quiz(numQ, min, max, maxmin, reset) {
         qDiv.setAttribute('id', 'QuizDiv');
         $('#MainRow').append(qDiv);
         $('#QuizDiv').append(this.getDom());
-    }
+    };
 }
 
 function getRgb(percentage) {
