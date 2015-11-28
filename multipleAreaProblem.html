@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      context.font = 'bold 14px sans-serif';
+      context.fillStyle = '#000';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+
+      areaProblem(8,5,7,5);
+
+      function areaProblem(a,b,c,d){
+
+        var s = 30; // scale
+        var bd = 40; // border
+
+        // top line
+        context.beginPath();
+        context.moveTo(bd,bd);
+        context.lineTo(bd + ((a+b) * s), bd);
+        context.stroke();
+
+        // left line
+        context.beginPath();
+        context.moveTo(bd,bd);
+        context.lineTo(bd, bd + ((c+d) * s));
+        context.stroke();
+
+        // right line
+        context.beginPath();
+        context.moveTo(bd + ((a+b) * s), bd);
+        context.lineTo(bd + ((a+b) * s), bd + ((c+d) * s));
+        context.stroke();
+
+        // bottom line
+        context.beginPath();
+        context.moveTo(bd, bd + ((c+d) * s));
+        context.lineTo(bd + ((a+b) * s), bd + ((c+d) * s));
+        context.stroke();
+
+        // vertical
+        context.beginPath();
+        context.moveTo(bd + a * s, bd);
+        context.lineTo(bd + a * s, bd + ((c+d) * s))
+        context.stroke();
+
+        // horizontal
+        context.beginPath();
+        context.moveTo(bd, bd + c * s);
+        context.lineTo(bd + ((a+b) * s), bd + c * s);
+        context.stroke();
+
+        // side lengths
+        context.fillText(a, avg(bd, bd + a * s), bd - 15);
+        context.fillText(b, avg(bd + a*s, bd + (a+b)*s ), bd - 15);
+        context.fillText(c, bd - 15, avg(bd, bd + c*s));
+        context.fillText(d, bd - 15, avg(bd + c*s, bd + (c+d)*s));
+
+        // areas
+        context.fillText(a * c, avg(bd, bd + a * s),          avg(bd, bd + c*s));
+        context.fillText(b * c, avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
+        context.fillText(a * d, avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(b * d, avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
+
+
+        function avg(x,y){
+          return (x + y) / 2;
+        }
+      }
+    </script>
+  </body>
+</html>
