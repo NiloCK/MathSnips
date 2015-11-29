@@ -118,16 +118,16 @@
         context.stroke();
 
         // side lengths
-        if (showA) context.fillText('a', avg(bd, bd + a * s), bd - 15);
-        if (showB) context.fillText('b', avg(bd + a*s, bd + (a+b)*s ), bd - 15);
-        if (showC) context.fillText('c', bd - 15, avg(bd, bd + c*s));
-        if (showD) context.fillText('d', bd - 15, avg(bd + c*s, bd + (c+d)*s));
+        if (showA) context.fillText(a, avg(bd, bd + a * s), bd - 15);
+        if (showB) context.fillText(b, avg(bd + a*s, bd + (a+b)*s ), bd - 15);
+        if (showC) context.fillText(c, bd - 15, avg(bd, bd + c*s));
+        if (showD) context.fillText(d, bd - 15, avg(bd + c*s, bd + (c+d)*s));
 
         // areas
-        context.fillText(sector1 ? 'a * c' : '?', avg(bd, bd + a * s),          avg(bd, bd + c*s));
-        context.fillText(sector2 ? 'b * c' : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
-        context.fillText(sector3 ? 'a * d' : '?', avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
-        context.fillText(sector4 ? 'b * d' : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(sector1 ? a * c : '?', avg(bd, bd + a * s),          avg(bd, bd + c*s));
+        context.fillText(sector2 ? b * c : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
+        context.fillText(sector3 ? a * d : '?', avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(sector4 ? b * d : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
 
 
         function avg(x,y){
