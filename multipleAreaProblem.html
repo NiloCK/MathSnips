@@ -3,14 +3,43 @@
   <head>
     <style>
       body {
-        margin: 0px;
-        padding: 0px;
+        margin: 20px;
+        padding: 20px;
       }
     </style>
+    <script src="Scripts/jquery-2.1.3.js" charset="utf-8"></script>
   </head>
   <body>
+    a: <input type="text" value="8" name="" id="a"> <input type="checkbox" id="showA">
+    <br>
+    b: <input type="text" value="5" name="" id="b"> <input type="checkbox" id ="showB">
+    <br>
+    c: <input type="text" value="5" name="" id="c"> <input type="checkbox" id ="showC">
+    <br>
+    d: <input type="text" value="6" name="" id="d"> <input type="checkbox" id ="showD">
+    <br>
+    <br>
+    Areas:
+    <br>
+    Sector 1: <input type="checkbox" checked="" id="sector1">
+    <br>
+    Sector 2: <input type="checkbox" checked="" id="sector2">
+    <br>
+    Sector 3: <input type="checkbox"  id="sector3">
+    <br>
+    Sector 4: <input type="checkbox" checked="" id="sector4">
+
+
+    <!-- <button type="button" name="button" onclick="drawProblem">DRAW</button> -->
+    <br>
+
     <canvas id="myCanvas" width="1000" height="1000"></canvas>
+
     <script>
+
+      $('input').on('change', drawProblem);
+      $('input').on('input', drawProblem);
+
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
 
@@ -19,9 +48,35 @@
       context.textAlign = 'center';
       context.textBaseline = 'middle';
 
-      areaProblem(8,5,7,5);
+      areaProblem(8,5,5,6,
+                  0,0,0,0,
+                  1,1,0,1);
 
-      function areaProblem(a,b,c,d){
+      function drawProblem(){
+        context.clearRect(0,0, canvas.width, canvas.height);
+
+        areaProblem(
+          document.getElementById('a').value,
+          document.getElementById('b').value,
+          document.getElementById('c').value,
+          document.getElementById('d').value,
+          document.getElementById('showA').checked,
+          document.getElementById('showB').checked,
+          document.getElementById('showC').checked,
+          document.getElementById('showD').checked,
+          document.getElementById('sector1').checked,
+          document.getElementById('sector2').checked,
+          document.getElementById('sector3').checked,
+          document.getElementById('sector4').checked
+        );
+
+      }
+
+      function areaProblem(a,b,c,d, showA, showB, showC, showD, sector1, sector2, sector3, sector4){
+        a = parseInt(a);
+        b = parseInt(b);
+        c = parseInt(c);
+        d = parseInt(d);
 
         var s = 30; // scale
         var bd = 40; // border
@@ -63,16 +118,16 @@
         context.stroke();
 
         // side lengths
-        context.fillText(a, avg(bd, bd + a * s), bd - 15);
-        context.fillText(b, avg(bd + a*s, bd + (a+b)*s ), bd - 15);
-        context.fillText(c, bd - 15, avg(bd, bd + c*s));
-        context.fillText(d, bd - 15, avg(bd + c*s, bd + (c+d)*s));
+        if (showA) context.fillText('a', avg(bd, bd + a * s), bd - 15);
+        if (showB) context.fillText('b', avg(bd + a*s, bd + (a+b)*s ), bd - 15);
+        if (showC) context.fillText('c', bd - 15, avg(bd, bd + c*s));
+        if (showD) context.fillText('d', bd - 15, avg(bd + c*s, bd + (c+d)*s));
 
         // areas
-        context.fillText(a * c, avg(bd, bd + a * s),          avg(bd, bd + c*s));
-        context.fillText(b * c, avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
-        context.fillText(a * d, avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
-        context.fillText(b * d, avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(sector1 ? 'a * c' : '?', avg(bd, bd + a * s),          avg(bd, bd + c*s));
+        context.fillText(sector2 ? 'b * c' : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
+        context.fillText(sector3 ? 'a * d' : '?', avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(sector4 ? 'b * d' : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
 
 
         function avg(x,y){
