@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 20px;
+        padding: 20px;
+      }
+    </style>
+    <script src="Scripts/jquery-2.1.3.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <img src="rectangle.JPG" alt="demonstration rectangle">
+    <br>
+    <p>Values a, b, c, and d represent the dimensions as indicated in the above diagram. Alter them to create new problems. The checkboxes determine what information is placed in the diagram.</p>
+    <br>
+    a: <input type="text" value="8" name="" id="a"> <input type="checkbox" id="showA">
+    <br>
+    b: <input type="text" value="5" name="" id="b"> <input type="checkbox" id ="showB">
+    <br>
+    c: <input type="text" value="5" name="" id="c"> <input type="checkbox" id ="showC">
+    <br>
+    d: <input type="text" value="6" name="" id="d"> <input type="checkbox" id ="showD">
+    <br><br>
+    Areas:
+    <br>
+    Sector 1: <input type="checkbox" checked="" id="sector1">
+    <br>
+    Sector 2: <input type="checkbox" checked="" id="sector2">
+    <br>
+    Sector 3: <input type="checkbox"  id="sector3">
+    <br>
+    Sector 4: <input type="checkbox" checked="" id="sector4">
+
+
+    <!-- <button type="button" name="button" onclick="drawProblem">DRAW</button> -->
+    <br>
+
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+
+    <script>
+
+      $('input').on('change', drawProblem);
+      $('input').on('input', drawProblem);
+
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      context.font = 'bold 14px sans-serif';
+      context.fillStyle = '#000';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+
+      areaProblem(8,5,5,6,
+                  0,0,0,0,
+                  1,1,0,1);
+
+      function drawProblem(){
+        context.clearRect(0,0, canvas.width, canvas.height);
+
+        areaProblem(
+          document.getElementById('a').value,
+          document.getElementById('b').value,
+          document.getElementById('c').value,
+          document.getElementById('d').value,
+          document.getElementById('showA').checked,
+          document.getElementById('showB').checked,
+          document.getElementById('showC').checked,
+          document.getElementById('showD').checked,
+          document.getElementById('sector1').checked,
+          document.getElementById('sector2').checked,
+          document.getElementById('sector3').checked,
+          document.getElementById('sector4').checked
+        );
+
+      }
+
+      function areaProblemSolver(a,b,c,d, a1, a2, a3, a4){
+        while (
+          a === null ||
+          b === null ||
+          c === null ||
+          d === null ||
+          a1 === null ||
+          a2 === null ||
+          a3 === null ||
+          a4 === null
+        ){
+          if (a && b){
+            a2 = a * b;
+          } else {
+            if (a2){
+              var ab = factors(a2);
+            }
+          }
+
+
+        }
+
+        function initCheck(s1, s2, area){
+          if (s1 && s2){
+            area = s1 * s2;
+          } else {
+            if (area){
+              var fact = factors(area);
+            }
+          }
+        }
+
+        function factors(area){
+          var ret = [];
+          for (var i = 1; i<Math.sqrt(area); i++){
+            if (area % i === 0){
+              ret.push([i, area / i]);
+            }
+          }
+        }
+      }
+
+      function areaProblem(a,b,c,d, showA, showB, showC, showD, sector1, sector2, sector3, sector4){
+        a = parseInt(a);
+        b = parseInt(b);
+        c = parseInt(c);
+        d = parseInt(d);
+
+        areaProblemSolver(
+          showA ? a : null,
+          showB ? b : null,
+          showC ? c : null,
+          showD ? d : null,
+          sector1 ? (a * c), null,
+          sector2 ? (c * b), null,
+          sector3 ? (a * d), null,
+          sector4 ? (d * b), null
+        );
+
+        var s = 30; // scale
+        var bd = 40; // border
+
+        // top line
+        context.beginPath();
+        context.moveTo(bd,bd);
+        context.lineTo(bd + ((a+b) * s), bd);
+        context.stroke();
+
+        // left line
+        context.beginPath();
+        context.moveTo(bd,bd);
+        context.lineTo(bd, bd + ((c+d) * s));
+        context.stroke();
+
+        // right line
+        context.beginPath();
+        context.moveTo(bd + ((a+b) * s), bd);
+        context.lineTo(bd + ((a+b) * s), bd + ((c+d) * s));
+        context.stroke();
+
+        // bottom line
+        context.beginPath();
+        context.moveTo(bd, bd + ((c+d) * s));
+        context.lineTo(bd + ((a+b) * s), bd + ((c+d) * s));
+        context.stroke();
+
+        // vertical
+        context.beginPath();
+        context.moveTo(bd + a * s, bd);
+        context.lineTo(bd + a * s, bd + ((c+d) * s))
+        context.stroke();
+
+        // horizontal
+        context.beginPath();
+        context.moveTo(bd, bd + c * s);
+        context.lineTo(bd + ((a+b) * s), bd + c * s);
+        context.stroke();
+
+        // side lengths
+        if (showA) context.fillText(a, avg(bd, bd + a * s), bd - 15);
+        if (showB) context.fillText(b, avg(bd + a*s, bd + (a+b)*s ), bd - 15);
+        if (showC) context.fillText(c, bd - 15, avg(bd, bd + c*s));
+        if (showD) context.fillText(d, bd - 15, avg(bd + c*s, bd + (c+d)*s));
+
+        // areas
+        context.fillText(sector1 ? a * c : '?', avg(bd, bd + a * s),          avg(bd, bd + c*s));
+        context.fillText(sector2 ? b * c : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd, bd + c*s));
+        context.fillText(sector3 ? a * d : '?', avg(bd, bd + a * s),          avg(bd + c*s, bd + (c+d)*s));
+        context.fillText(sector4 ? b * d : '?', avg(bd + a*s, bd + (a+b)*s ), avg(bd + c*s, bd + (c+d)*s));
+
+
+        function avg(x,y){
+          return (x + y) / 2;
+        }
+      }
+    </script>
+  </body>
+</html>
