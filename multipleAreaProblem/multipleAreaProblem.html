@@ -7,7 +7,7 @@
         padding: 20px;
       }
     </style>
-    <script src="Scripts/jquery-2.1.3.js" charset="utf-8"></script>
+    <script src="../Scripts/jquery-2.1.3.js" charset="utf-8"></script>
   </head>
   <body>
     <img src="rectangle.JPG" alt="demonstration rectangle">
@@ -76,28 +76,42 @@
       }
 
       function areaProblemSolver(a,b,c,d, a1, a2, a3, a4){
-        while (
-          a === null ||
-          b === null ||
-          c === null ||
-          d === null ||
-          a1 === null ||
-          a2 === null ||
-          a3 === null ||
-          a4 === null
-        ){
-          if (a && b){
-            a2 = a * b;
-          } else {
-            if (a2){
-              var ab = factors(a2);
-            }
-          }
+        // while (
+        //   a === null ||
+        //   b === null ||
+        //   c === null ||
+        //   d === null ||
+        //   a1 === null ||
+        //   a2 === null ||
+        //   a3 === null ||
+        //   a4 === null
+        // ){
+        //   if (a && b){
+        //     a2 = a * b;
+        //   } else {
+        //     if (a2){
+        //       var ab = factors(a2);
+        //     }
+        //   }
+        //
+        //
+        // }
 
+        f1 = factors(a1);
+        f2 = factors(a2);
+        f3 = factors(a3);
+        f4 = factors(a4);
 
-        }
+        for (var i=0; i<f1.length; i++){}
+
+        console.log(f1);
+        console.log(f2);
+        console.log(f3);
+        console.log(f4);
 
         function initCheck(s1, s2, area){
+
+
           if (s1 && s2){
             area = s1 * s2;
           } else {
@@ -109,11 +123,18 @@
 
         function factors(area){
           var ret = [];
-          for (var i = 1; i<Math.sqrt(area); i++){
+
+          if (area === null){
+            return ret;
+          }
+
+          for (var i = 1; i<=area; i++){
             if (area % i === 0){
               ret.push([i, area / i]);
             }
           }
+
+          return ret;
         }
       }
 
@@ -128,10 +149,10 @@
           showB ? b : null,
           showC ? c : null,
           showD ? d : null,
-          sector1 ? (a * c), null,
-          sector2 ? (c * b), null,
-          sector3 ? (a * d), null,
-          sector4 ? (d * b), null
+          sector1 ? (a * c) : null,
+          sector2 ? (c * b) : null,
+          sector3 ? (a * d) : null,
+          sector4 ? (d * b) : null
         );
 
         var s = 30; // scale
